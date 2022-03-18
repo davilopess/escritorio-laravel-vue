@@ -162,12 +162,29 @@ export default {
       );
     });
     const deletePeticao = (postId) => {
-      const result = confirm("Você deseja excluir essa petição?");
-      if (result) {
-        Inertia.delete(route("peticao.destroy", postId), {
+      Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Você não consiguira reverter esta ação!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Inertia.delete(route("peticao.destroy", postId), {
           preserveScroll: true,
+          onSuccess: () => {
+           Swal.fire(
+            'Deletado!',
+            'A petição foi deletada.',
+            'success'
+          )
+          }
         });
-      }
+          
+        }
+      })
     };
     return { form, deletePeticao };
   },

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Peticao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PeticaoController extends Controller
@@ -42,7 +43,9 @@ class PeticaoController extends Controller
     {
         
         $request->validate([
-            'description' => 'required|string',
+            'description' => 'required|string|min:3|max:255',
+            'value' => 'required|numeric',
+            'date' => 'required',
         ]);
 
         Peticao::create([
@@ -52,9 +55,8 @@ class PeticaoController extends Controller
             'note' =>$request->note,
         ]);
 
-        return back()->with('sucess', 'Cadastrado com sucesso');
+        return Redirect::route('peticao.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -87,14 +89,14 @@ class PeticaoController extends Controller
     public function update(Request $request, Peticao $peticao)
     {
         $request->validate([
-            'description' => 'required|string',
-            'value' => 'required',
+            'description' => 'required|string|min:3|max:255',
+            'value' => 'required|numeric',
             'date' => 'required',
         ]);
 
         $peticao->update($request->all());
 
-        return back()->with('sucess', 'Atualizado com sucesso');
+        return Redirect::route('peticao.index');
     }
 
     /**
