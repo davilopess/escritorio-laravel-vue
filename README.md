@@ -11,10 +11,22 @@ de contas a pagar do novo sistema do setor jurídico da empresa ABC.
 
 * Sem docker
 
-Na pasta escritorio
+Insira o arquivo .env com as configuracoes do banco mysql.
+
+Na pasta escritorio insira os comandos
 ```
 composer install
 ```
+```
+php artisan migrate
+```
+```
+php artisan key:generate
+```
+```
+php artisan serve
+```
+
 * Com docker
 
 Crie os containers
@@ -36,7 +48,6 @@ php artisan migrate
 php artisan key:generate
 ```
 
-* Sem Docker
 
 #### Simples demonstração
 
