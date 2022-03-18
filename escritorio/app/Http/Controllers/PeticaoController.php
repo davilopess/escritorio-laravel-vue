@@ -18,7 +18,7 @@ class PeticaoController extends Controller
     {
         $queries = ['search', 'page'];
         return Inertia::render('Peticao/Index', [
-            'peticao' => Peticao::filter($request->only($queries))->paginate()->withQueryString(),
+            'peticao' => Peticao::filter($request->only($queries))->paginate(5)->withQueryString(),
             'filters' => $request->all($queries),
         ]);
     }
